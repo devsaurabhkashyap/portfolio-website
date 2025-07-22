@@ -82,7 +82,7 @@
                     <div class="hero-buttons">
     <!-- <a href="contact.html" class="btn btn-primary">Get In Touch</a> -->
     <!-- <a href="#about" class="btn btn-secondary">Learn More</a> -->
-    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="btn btn-cv">
+    <a href="assets/Saurabh_Kashyap_CV.pdf" download="Saurabh_Kashyap_CV" class="btn btn-cv">
         <i class="fas fa-download"></i>
         <span>Download CV</span>
     </a>
@@ -180,43 +180,438 @@
                 </div>
             </div>
         </section>
-        <!-- CV Preview Section -->
+        <!-- Advanced CV/Resume Section -->
 <section class="cv-section">
     <div class="container">
-        <h2 class="section-title">My Resume</h2>
-        <div class="cv-preview">
-            <div class="cv-info">
-                <h3>John Doe - Frontend Developer</h3>
-                <p>5+ years of experience in creating exceptional digital experiences</p>
-                <div class="cv-highlights">
-                    <div class="highlight-item">
-                        <i class="fas fa-briefcase"></i>
-                        <span>50+ Projects Completed</span>
+        <div class="section-header">
+            <h2 class="section-title">My Professional Journey</h2>
+            <p class="section-subtitle">Explore my career progression and expertise through an interactive experience</p>
+        </div>
+        
+        <div class="cv-preview-advanced">
+            <!-- Left Side - Enhanced Controls & Info -->
+            <div class="cv-control-panel">
+                <div class="cv-stats-card">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Years Experience</div>
                     </div>
-                    <div class="highlight-item">
-                        <i class="fas fa-code"></i>
-                        <span>Expert in React, JavaScript, CSS</span>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">Projects Completed</div>
                     </div>
-                    <div class="highlight-item">
-                        <i class="fas fa-award"></i>
-                        <span>UI/UX Design Certified</span>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="25">0</div>
+                        <div class="stat-label">Happy Clients</div>
                     </div>
                 </div>
-                <div class="cv-actions">
-                    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="btn btn-primary">
-                        <i class="fas fa-download"></i>
-                        Download PDF
-                    </a>
-                    <a href="assets/cv/John_Doe_CV.pdf" target="_blank" class="btn btn-secondary">
-                        <i class="fas fa-eye"></i>
-                        View Online
-                    </a>
+
+                <div class="cv-highlights-advanced">
+                    <h3>Professional Highlights</h3>
+                    <div class="highlight-item-advanced">
+                        <div class="highlight-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Senior Frontend Developer</h4>
+                            <p>Leading development teams and architectural decisions</p>
+                            <div class="highlight-progress">
+                                <div class="progress-bar" data-width="95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-item-advanced">
+                        <div class="highlight-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Full-Stack Expertise</h4>
+                            <p>Proficient in modern web technologies</p>
+                            <div class="highlight-progress">
+                                <div class="progress-bar" data-width="90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-item-advanced">
+                        <div class="highlight-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>UI/UX Design</h4>
+                            <p>Creating beautiful user experiences</p>
+                            <div class="highlight-progress">
+                                <div class="progress-bar" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cv-actions-advanced">
+                    <button id="viewResumeBtn" class="btn btn-primary btn-interactive">
+                        <span class="btn-text">
+                            <i class="fas fa-eye"></i>
+                            View Interactive Resume
+                        </span>
+                        <div class="btn-particles"></div>
+                    </button>
+                    
+                    <button id="downloadResumeBtn" class="btn btn-secondary btn-interactive">
+                        <span class="btn-text">
+                            <i class="fas fa-download"></i>
+                            Download PDF
+                        </span>
+                        <div class="btn-particles"></div>
+                    </button>
+                    
+                    <button id="shareResumeBtn" class="btn btn-outline btn-interactive">
+                        <span class="btn-text">
+                            <i class="fas fa-share-alt"></i>
+                            Share Resume
+                        </span>
+                        <div class="btn-particles"></div>
+                    </button>
                 </div>
             </div>
-            <div class="cv-preview-image">
-                <div class="cv-mockup">
-                    <i class="fas fa-file-alt"></i>
-                    <p>Professional Resume</p>
+
+            <!-- Right Side - Advanced Resume Viewer -->
+            <div class="cv-viewer-container">
+                <!-- Default State -->
+                <div class="cv-placeholder" id="cvPlaceholder">
+                    <div class="placeholder-content">
+                        <div class="placeholder-icon">
+                            <i class="fas fa-file-alt"></i>
+                            <div class="icon-rings">
+                                <div class="ring ring-1"></div>
+                                <div class="ring ring-2"></div>
+                                <div class="ring ring-3"></div>
+                            </div>
+                        </div>
+                        <h3>Interactive Resume Experience</h3>
+                        <p>Click "View Interactive Resume" to explore my professional journey</p>
+                        <div class="placeholder-features">
+                            <div class="feature">
+                                <i class="fas fa-mouse-pointer"></i>
+                                <span>Interactive Navigation</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Skill Visualizations</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-timeline"></i>
+                                <span>Career Timeline</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Interactive Resume -->
+                <div class="cv-interactive-advanced" id="cvInteractiveAdvanced" style="display: none;">
+                    <!-- Resume Navigation Tabs -->
+                    <div class="resume-nav">
+                        <div class="nav-tab active" data-section="overview">
+                            <i class="fas fa-user"></i>
+                            <span>Overview</span>
+                        </div>
+                        <div class="nav-tab" data-section="experience">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Experience</span>
+                        </div>
+                        <div class="nav-tab" data-section="skills">
+                            <i class="fas fa-code"></i>
+                            <span>Skills</span>
+                        </div>
+                        <div class="nav-tab" data-section="education">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Education</span>
+                        </div>
+                        <div class="nav-tab" data-section="projects">
+                            <i class="fas fa-rocket"></i>
+                            <span>Projects</span>
+                        </div>
+                    </div>
+
+                    <!-- Resume Content Sections -->
+                    <div class="resume-content">
+                        <!-- Overview Section -->
+                        <div class="resume-section active" id="overview">
+                            <div class="profile-header">
+                                <div class="profile-avatar">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="John Doe">
+                                    <div class="avatar-status">
+                                        <div class="status-dot"></div>
+                                        <span>Available</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info">
+                                    <h2>John Doe</h2>
+                                    <h3>Senior Frontend Developer</h3>
+                                    <div class="profile-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>New York, USA</span>
+                                    </div>
+                                    <div class="profile-contact">
+                                        <a href="mailto:john.doe@email.com" class="contact-link">
+                                            <i class="fas fa-envelope"></i>
+                                            john.doe@email.com
+                                        </a>
+                                        <a href="tel:+15551234567" class="contact-link">
+                                            <i class="fas fa-phone"></i>
+                                            +1 (555) 123-4567
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="professional-summary">
+                                <h4>Professional Summary</h4>
+                                <p>Innovative Frontend Developer with 5+ years of experience creating exceptional digital experiences. Specialized in React, Vue.js, and modern JavaScript frameworks. Passionate about clean code, performance optimization, and user-centered design.</p>
+                                
+                                <div class="summary-metrics">
+                                    <div class="metric">
+                                        <div class="metric-value">150+</div>
+                                        <div class="metric-label">Components Built</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-value">98%</div>
+                                        <div class="metric-label">Client Satisfaction</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-value">40%</div>
+                                        <div class="metric-label">Performance Boost</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Section -->
+                        <div class="resume-section" id="experience">
+                            <h4>Professional Experience</h4>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-marker">
+                                        <div class="marker-dot"></div>
+                                        <div class="marker-line"></div>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <div class="job-header">
+                                            <h5>Senior Frontend Developer</h5>
+                                            <div class="job-meta">
+                                                <span class="company">Tech Solutions Inc.</span>
+                                                <span class="duration">2022 - Present</span>
+                                            </div>
+                                        </div>
+                                        <div class="job-description">
+                                            <ul>
+                                                <li>Led development of 15+ responsive web applications using React and TypeScript</li>
+                                                <li>Improved application performance by 40% through code optimization and lazy loading</li>
+                                                <li>Mentored 5 junior developers and established coding standards</li>
+                                                <li>Collaborated with design team to implement pixel-perfect UI components</li>
+                                            </ul>
+                                        </div>
+                                        <div class="job-technologies">
+                                            <span class="tech-tag">React</span>
+                                            <span class="tech-tag">TypeScript</span>
+                                            <span class="tech-tag">Node.js</span>
+                                            <span class="tech-tag">AWS</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-marker">
+                                        <div class="marker-dot"></div>
+                                        <div class="marker-line"></div>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <div class="job-header">
+                                            <h5>Frontend Developer</h5>
+                                            <div class="job-meta">
+                                                <span class="company">Digital Agency Co.</span>
+                                                <span class="duration">2020 - 2022</span>
+                                            </div>
+                                        </div>
+                                        <div class="job-description">
+                                            <ul>
+                                                <li>Developed custom WordPress themes and React components</li>
+                                                <li>Collaborated on 25+ client projects across various industries</li>
+                                                <li>Implemented responsive designs and cross-browser compatibility</li>
+                                            </ul>
+                                        </div>
+                                        <div class="job-technologies">
+                                            <span class="tech-tag">JavaScript</span>
+                                            <span class="tech-tag">Vue.js</span>
+                                            <span class="tech-tag">SASS</span>
+                                            <span class="tech-tag">WordPress</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skills Section -->
+                        <div class="resume-section" id="skills">
+                            <h4>Technical Skills</h4>
+                            <div class="skills-grid-advanced">
+                                <div class="skill-category">
+                                    <h5>Frontend Technologies</h5>
+                                    <div class="skill-item-advanced">
+                                        <div class="skill-info">
+                                            <span class="skill-name">React.js</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-bar-container">
+                                            <div class="skill-bar-advanced" data-width="95%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item-advanced">
+                                        <div class="skill-info">
+                                            <span class="skill-name">JavaScript/TypeScript</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-bar-container">
+                                            <div class="skill-bar-advanced" data-width="92%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item-advanced">
+                                        <div class="skill-info">
+                                            <span class="skill-name">CSS3/SASS</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-bar-container">
+                                            <div class="skill-bar-advanced" data-width="88%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-category">
+                                    <h5>Backend & Tools</h5>
+                                    <div class="skill-item-advanced">
+                                        <div class="skill-info">
+                                            <span class="skill-name">Node.js</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-bar-container">
+                                            <div class="skill-bar-advanced" data-width="85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item-advanced">
+                                        <div class="skill-info">
+                                            <span class="skill-name">Git/GitHub</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-bar-container">
+                                            <div class="skill-bar-advanced" data-width="90%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item-advanced">
+                                        <div class="skill-info">
+                                            <span class="skill-name">AWS/Cloud</span>
+                                            <span class="skill-level">Intermediate</span>
+                                        </div>
+                                        <div class="skill-bar-container">
+                                            <div class="skill-bar-advanced" data-width="75%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education Section -->
+                        <div class="resume-section" id="education">
+                            <h4>Education & Certifications</h4>
+                            <div class="education-grid">
+                                <div class="education-item-advanced">
+                                    <div class="education-icon">
+                                        <i class="fas fa-university"></i>
+                                    </div>
+                                    <div class="education-content">
+                                        <h5>Bachelor of Computer Science</h5>
+                                        <p class="institution">State University</p>
+                                        <p class="duration">2016 - 2020</p>
+                                        <p class="grade">GPA: 3.8/4.0</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="education-item-advanced">
+                                    <div class="education-icon">
+                                        <i class="fas fa-certificate"></i>
+                                    </div>
+                                    <div class="education-content">
+                                        <h5>AWS Certified Developer</h5>
+                                        <p class="institution">Amazon Web Services</p>
+                                        <p class="duration">2023</p>
+                                        <p class="grade">Associate Level</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="education-item-advanced">
+                                    <div class="education-icon">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                    <div class="education-content">
+                                        <h5>Google UX Design Certificate</h5>
+                                        <p class="institution">Google via Coursera</p>
+                                        <p class="duration">2022</p>
+                                        <p class="grade">Professional Certificate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Projects Section -->
+                        <div class="resume-section" id="projects">
+                            <h4>Featured Projects</h4>
+                            <div class="projects-grid">
+                                <div class="project-card-advanced">
+                                    <div class="project-image">
+                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop" alt="E-commerce Platform">
+                                        <div class="project-overlay">
+                                            <a href="#" class="project-link">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="project-content">
+                                        <h5>E-commerce Platform</h5>
+                                        <p>Full-stack e-commerce solution with React, Node.js, and Stripe integration</p>
+                                        <div class="project-tech">
+                                            <span>React</span>
+                                            <span>Node.js</span>
+                                            <span>MongoDB</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-advanced">
+                                    <div class="project-image">
+                                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=300&h=200&fit=crop" alt="Analytics Dashboard">
+                                        <div class="project-overlay">
+                                            <a href="#" class="project-link">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="project-content">
+                                        <h5>Analytics Dashboard</h5>
+                                        <p>Real-time data visualization dashboard with D3.js and WebSocket integration</p>
+                                        <div class="project-tech">
+                                            <span>Vue.js</span>
+                                            <span>D3.js</span>
+                                            <span>WebSocket</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Close Button -->
+                    <button class="close-resume-btn" id="closeResumeBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -229,7 +624,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>John<span>Dev</span></h3>
+                    <h3>Saurabh <span>Kashyap</span></h3>
                     <p>Creating amazing web experiences with passion and precision.</p>
                 </div>
                 <div class="footer-section">
@@ -252,13 +647,13 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 John Doe. All rights reserved.</p>
+                <p>&copy; 2025 Saurabh Kashyap. All rights reserved.</p>
             </div>
         </div>
     </footer>
     <!-- Floating CV Download Button -->
 <div class="floating-cv-btn">
-    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="floating-btn" title="Download CV">
+    <a href="assets/Saurabh_Kashyap_CV.pdf" download="Saurabh_Kashyap_CV.pdf" class="floating-btn" title="Download CV">
         <i class="fas fa-file-download"></i>
     </a>
 </div>
@@ -273,3 +668,4 @@
 <script src="contact.js"></script>
 </body>
 </html>
+

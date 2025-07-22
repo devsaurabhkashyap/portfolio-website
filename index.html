@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurabh Kashyap</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+</head>
+<body>
+  <!-- Simple Circle Loader with Welcome Text -->
+<!-- <div id="loader" class="loader-container">
+    <div class="loader-content">
+        <div class="circle-loader"></div>
+        <div class="welcome-text">
+            <h2 class="welcome-title">Welcome</h2>
+            <p class="welcome-subtitle">to my digital world</p>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+    <header class="header">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2><a href="index.html">Saurabh <span> Kashyap</span></a></h2>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="work.html" class="nav-link">Work</a></li>
+            <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <!-- <li><a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="nav-link cv-link">
+                <i class="fas fa-download"></i> Resume
+            </a></li> -->
+        </ul>
+        <div class="nav-controls">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <!-- Add User Info Section to Home Page -->
+            <div id="userInfo" class="user-info" style="display: none;">
+                <div class="user-profile">
+                    <img id="userAvatar" class="user-avatar" src="" alt="User Avatar">
+                    <span id="userName" class="user-name"></span>
+                </div>
+                <button id="logoutBtn" class="btn btn-small logout-btn">Logout</button>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+</header>
+
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Hi, I'm <span class="highlight">Saurabh K.</span></h1>
+                    <h2 class="typing-text">Frontend Developer</h2>
+                    <p class="hero-description">
+                        I create stunning, responsive web experiences using modern technologies. 
+                        Passionate about clean code, user experience, and bringing ideas to life.
+                    </p>
+                    <div class="hero-buttons">
+    <!-- <a href="contact.html" class="btn btn-primary">Get In Touch</a> -->
+    <!-- <a href="#about" class="btn btn-secondary">Learn More</a> -->
+    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="btn btn-cv">
+        <i class="fas fa-download"></i>
+        <span>Download CV</span>
+    </a>
+</div>
+
+                    <!-- <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div> -->
+                </div>
+                <div class="hero-image">
+                    <div class="image-container">
+                        <img src="./assets/SA_Photo.jpg" alt="John Doe" class="profile-img">
+                        <div class="floating-elements">
+                            <div class="floating-icon html"><i class="fab fa-html5"></i></div>
+                            <div class="floating-icon css"><i class="fab fa-css3-alt"></i></div>
+                            <div class="floating-icon js"><i class="fab fa-js-square"></i></div>
+                            <div class="floating-icon react"><i class="fab fa-react"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Welcome Section -->
+<section id="userWelcomeSection" class="user-welcome-section" style="display: none;">
+    <div class="container">
+        <div class="welcome-message">
+            <div class="welcome-avatar">
+                <img id="bodyUserAvatar" class="body-user-avatar" src="" alt="User Avatar">
+            </div>
+            <div class="welcome-content">
+                <h2 id="bodyWelcomeText">Hi, Guest!</h2>
+                <p>Welcome back to your personalized portfolio experience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            I'm a passionate frontend developer with 5+ years of experience creating 
+                            digital experiences that users love. I specialize in modern web technologies 
+                            and have a keen eye for design and user experience.
+                        </p>
+                        <div class="skills">
+                            <div class="skill-item">
+                                <span class="skill-name">HTML/CSS</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">JavaScript</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">React</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">UI/UX Design</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="50">0</h3>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="25">0</h3>
+                            <p>Happy Clients</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="5">0</h3>
+                            <p>Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CV Preview Section -->
+<section class="cv-section">
+    <div class="container">
+        <h2 class="section-title">My Resume</h2>
+        <div class="cv-preview">
+            <div class="cv-info">
+                <h3>John Doe - Frontend Developer</h3>
+                <p>5+ years of experience in creating exceptional digital experiences</p>
+                <div class="cv-highlights">
+                    <div class="highlight-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>50+ Projects Completed</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-code"></i>
+                        <span>Expert in React, JavaScript, CSS</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-award"></i>
+                        <span>UI/UX Design Certified</span>
+                    </div>
+                </div>
+                <div class="cv-actions">
+                    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        Download PDF
+                    </a>
+                    <a href="assets/cv/John_Doe_CV.pdf" target="_blank" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        View Online
+                    </a>
+                </div>
+            </div>
+            <div class="cv-preview-image">
+                <div class="cv-mockup">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Professional Resume</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>John<span>Dev</span></h3>
+                    <p>Creating amazing web experiences with passion and precision.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="work.html">Work</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <!-- <h4>Connect</h4> -->
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 John Doe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Floating CV Download Button -->
+<div class="floating-cv-btn">
+    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="floating-btn" title="Download CV">
+        <i class="fas fa-file-download"></i>
+    </a>
+</div>
+
+    <script src="script.js"></script>
+    <!-- Load scripts in correct order -->
+<script src="firebase-config.js"></script>
+<script src="database-service.js"></script>
+<script src="script.js"></script>
+<script src="auth.js"></script>
+<!-- For contact page, also include -->
+<script src="contact.js"></script>
+</body>
+</html>

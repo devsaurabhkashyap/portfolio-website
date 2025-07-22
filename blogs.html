@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - John Doe</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+</head>
+<body>
+    <header class="header">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2><a href="index.html">John<span>Dev</span></a></h2>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="work.html" class="nav-link">Work</a></li>
+            <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <!-- <li><a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="nav-link cv-link">
+                <i class="fas fa-download"></i> CV
+            </a></li> -->
+        </ul>
+        <div class="nav-controls">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <!-- Enhanced User Info with Profile Image -->
+            <div id="userInfo" class="user-info" style="display: none;">
+                <div class="user-profile">
+                    <img id="userAvatar" class="user-avatar" src="" alt="User Avatar">
+                    <span id="userName" class="user-name"></span>
+                </div>
+                <button id="logoutBtn" class="btn btn-small logout-btn">Logout</button>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+</header>
+
+    <!-- Firebase-Integrated Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content-wrapper">
+        <!-- Left Side - Authentication Forms -->
+        <div class="auth-side">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="auth-container">
+                <div class="brand-logo">
+                    <h2>John<span>Dev</span></h2>
+                    <p>Welcome to my portfolio</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="signup">Sign Up</button>
+                    <button class="auth-tab forgot-tab" data-tab="forgot" style="display: none;">Reset Password</button>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <h3>Welcome Back</h3>
+                    <p class="form-subtitle">Please sign in to access exclusive content</p>
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <div class="auth-links">
+                        <button type="button" class="forgot-password-link" data-switch="forgot">
+                            <i class="fas fa-key"></i>
+                            Forgot Password?
+                        </button>
+                        <p class="auth-switch">Don't have an account? <button type="button" class="link-btn" data-switch="signup">Sign up here</button></p>
+                    </div>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signupForm" class="auth-form">
+                    <h3>Create Account</h3>
+                    <p class="form-subtitle">Join our community to access premium content</p>
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="emailVerification" checked>
+                        <label for="emailVerification">Send email verification (recommended)</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Create Account</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <p class="auth-switch">Already have an account? <button type="button" class="link-btn" data-switch="login">Sign in here</button></p>
+                </form>
+
+                <!-- Forgot Password Form -->
+                <form id="forgotForm" class="auth-form">
+                    <h3>Reset Password</h3>
+                    <p class="form-subtitle">Enter your email to receive password reset instructions</p>
+                    <div class="form-group">
+                        <label for="forgotEmail">Email Address</label>
+                        <input type="email" id="forgotEmail" placeholder="Enter your registered email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Send Reset Email</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <div class="back-to-login">
+                        <button type="button" class="link-btn" data-switch="login">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Login
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Replace the existing email verification section in work.html and blogs.html -->
+<div id="emailVerificationNotice" class="auth-form" style="display: none;">
+    <div class="verification-content">
+        <i class="fas fa-envelope-open verification-icon"></i>
+        <h3>Verify Your Email Address</h3>
+        <p class="form-subtitle">
+            We've sent a verification link to <strong id="verificationEmail"></strong>
+        </p>
+        
+        <div class="verification-steps">
+            <div class="step">
+                <i class="fas fa-inbox"></i>
+                <span>Check your inbox for an email from Firebase</span>
+            </div>
+            <div class="step">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Don't forget to check your spam/junk folder</span>
+            </div>
+            <div class="step">
+                <i class="fas fa-mouse-pointer"></i>
+                <span>Click the verification link in the email</span>
+            </div>
+            <div class="step">
+                <i class="fas fa-check-circle"></i>
+                <span>Return to this page and refresh</span>
+            </div>
+        </div>
+        
+        <div class="verification-actions">
+            <button type="button" id="resendVerification" class="btn btn-primary">
+                <i class="fas fa-redo"></i>
+                Resend Verification Email
+            </button>
+            <button type="button" id="checkVerificationStatus" class="btn btn-secondary">
+                <i class="fas fa-refresh"></i>
+                Check Verification Status
+            </button>
+            <button type="button" class="link-btn" data-switch="login">
+                <i class="fas fa-arrow-left"></i>
+                Back to Login
+            </button>
+        </div>
+        
+        <div class="verification-help">
+            <p><strong>Still not receiving emails?</strong></p>
+            <ul>
+                <li>Try using a Gmail, Yahoo, or Outlook email address</li>
+                <li>Add noreply@firebase.com to your contacts</li>
+                <li>Wait 5-10 minutes as emails may be delayed</li>
+                <li>Contact support if the problem persists</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Right Side - Creative Visual Section (same as before) -->
+        <div class="creative-side">
+            <div class="creative-content">
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                    <div class="shape shape-4"></div>
+                    <div class="shape shape-5"></div>
+                </div>
+                
+                <div class="creative-text">
+                    <h2 id="creativeTitle">Exclusive Access Awaits</h2>
+                    <p id="creativeSubtitle">Discover my latest projects, insights, and creative processes. Join a community of developers and designers.</p>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-code"></i>
+                            <span>Premium Code Examples</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Design Insights</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-rocket"></i>
+                            <span>Latest Projects</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <span>Developer Community</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-icons">
+                    <div class="tech-icon"><i class="fab fa-react"></i></div>
+                    <div class="tech-icon"><i class="fab fa-js-square"></i></div>
+                    <div class="tech-icon"><i class="fab fa-html5"></i></div>
+                    <div class="tech-icon"><i class="fab fa-css3-alt"></i></div>
+                    <div class="tech-icon"><i class="fab fa-node-js"></i></div>
+                    <div class="tech-icon"><i class="fab fa-figma"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Blog Content -->
+    <main id="blogContent" style="display: none;">
+        <section class="blog-section">
+            <div class="container">
+                <h1 class="page-title">My Blogs</h1>
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop" alt="JavaScript Tips">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 15, 2025</span>
+                                <span class="blog-category">JavaScript</span>
+                            </div>
+                            <h3>10 JavaScript Tips Every Developer Should Know</h3>
+                            <p>Discover essential JavaScript techniques that will make your code cleaner and more efficient.</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop" alt="CSS Grid">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 10, 2025</span>
+                                <span class="blog-category">CSS</span>
+                            </div>
+                            <h3>Mastering CSS Grid Layout</h3>
+                            <p>A comprehensive guide to creating complex layouts with CSS Grid.</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=250&fit=crop" alt="React Hooks">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-date">Jan 5, 2025</span>
+                                <span class="blog-category">React</span>
+                            </div>
+                            <h3>React Hooks: A Complete Guide</h3>
+                            <p>Learn how to use React Hooks effectively in your applications.</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 John Doe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Floating CV Download Button -->
+<div class="floating-cv-btn">
+    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="floating-btn" title="Download CV">
+        <i class="fas fa-file-download"></i>
+    </a>
+</div>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <!-- Load scripts in correct order -->
+<script src="firebase-config.js"></script>
+<script src="database-service.js"></script>
+<script src="script.js"></script>
+<script src="auth.js"></script>
+<!-- For contact page, also include -->
+<script src="contact.js"></script>
+</body>
+</html>

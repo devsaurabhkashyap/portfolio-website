@@ -3,50 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - John Doe</title>
+    <title>Contact</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
-  <header class="header">
-    <nav class="navbar">
-        <div class="nav-brand">
-            <h2><a href="index.html">John<span>Dev</span></a></h2>
-        </div>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="work.html" class="nav-link">Work</a></li>
-            <li><a href="blogs.html" class="nav-link">Blogs</a></li>
-            <li><a href="contact.html" class="nav-link">Contact</a></li>
-            <!-- <li><a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="nav-link cv-link">
-                <i class="fas fa-download"></i> CV
-            </a></li> -->
-        </ul>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-            <!-- Add User Info Section to Home Page -->
-            <div id="userInfo" class="user-info" style="display: none;">
-                <div class="user-profile">
-                    <img id="userAvatar" class="user-avatar" src="" alt="User Avatar">
-                    <span id="userName" class="user-name"></span>
-                </div>
-                <button id="logoutBtn" class="btn btn-small logout-btn">Logout</button>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2><a href="index.html">Saurabh <span>Kashyap</span></a></h2>
             </div>
-            <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-</header>
-
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="work.html" class="nav-link">Work</a></li>
+                <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li><a href="assets/Saurabh_Kashyap_CV.pdf" download="John_Doe_CV.pdf" class="nav-link cv-link">
+                    <i class="fas fa-download"></i> CV
+                </a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div id="userInfo" class="user-info" style="display: none;">
+                    <div class="user-profile">
+                        <img id="userAvatar" class="user-avatar" src="" alt="User Avatar">
+                        <span id="userName" class="user-name"></span>
+                    </div>
+                    <button id="logoutBtn" class="btn btn-small logout-btn">Logout</button>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
 
     <!-- Contact Content -->
     <main class="contact-main">
@@ -92,9 +87,9 @@
                                     <label for="message">Message</label>
                                     <textarea id="message" name="message" rows="5" required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-large">
+                                <button type="submit" class="btn btn-primary btn-large contact-submit-btn" id="submitBtn">
                                     <span class="btn-text">Send Message</span>
-                                    <i class="fas fa-paper-plane"></i>
+                                    <i class="fas fa-paper-plane btn-icon"></i>
                                 </button>
                             </form>
                         </div>
@@ -139,7 +134,7 @@
                                 </div>
                             </div>
                             
-                            <div class="contact-social">
+                            <!-- <div class="contact-social">
                                 <h4>Follow me</h4>
                                 <div class="social-links">
                                     <a href="#" class="social-link">
@@ -158,7 +153,13 @@
                                         <i class="fab fa-dribbble"></i>
                                         <span></span>
                                     </a>
-                                </div>
+                                </div> -->
+                                <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div> 
                             </div>
                         </div>
                     </div>
@@ -205,26 +206,51 @@
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Saurabh <span>Kashyap</span></h3>
+                    <p>Creating amazing web experiences with passion and precision.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="work.html">Work</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 John Doe. All rights reserved.</p>
             </div>
         </div>
     </footer>
-    <!-- Floating CV Download Button -->
-<div class="floating-cv-btn">
-    <a href="assets/cv/John_Doe_CV.pdf" download="John_Doe_CV.pdf" class="floating-btn" title="Download CV">
-        <i class="fas fa-file-download"></i>
-    </a>
-</div>
 
+    <!-- Floating CV Download Button -->
+    <div class="floating-cv-btn">
+        <a href="assets/Saurabh_Kashyap_CV.pdf" download="John_Doe_CV.pdf" class="floating-btn" title="Download CV">
+            <i class="fas fa-file-download"></i>
+        </a>
+    </div>
+
+    <!-- Scripts in correct order -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="database-service.js"></script>
     <script src="script.js"></script>
+    <script src="auth.js"></script>
     <script src="contact.js"></script>
-    <!-- Load scripts in correct order -->
-<script src="firebase-config.js"></script>
-<script src="database-service.js"></script>
-<script src="script.js"></script>
-<script src="auth.js"></script>
-<!-- For contact page, also include -->
-<script src="contact.js"></script>
 </body>
 </html>

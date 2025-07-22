@@ -1,7 +1,8 @@
-// contact.js - Enhanced Contact Form with Firebase
+// Contact Form Manager - Fixed Version
 class ContactFormManager {
     constructor() {
         this.form = document.getElementById('contactForm');
+        this.submitBtn = document.getElementById('submitBtn');
         this.dbService = window.dbService;
         this.auth = window.auth;
         this.init();
@@ -9,6 +10,7 @@ class ContactFormManager {
 
     init() {
         this.bindEvents();
+        this.addFormInteractions();
         this.updateTime();
         setInterval(() => this.updateTime(), 1000);
     }
@@ -17,8 +19,6 @@ class ContactFormManager {
         if (this.form) {
             this.form.addEventListener('submit', (e) => this.handleSubmit(e));
         }
-
-        this.addFormInteractions();
     }
 
     addFormInteractions() {
@@ -44,32 +44,32 @@ class ContactFormManager {
     async handleSubmit(e) {
         e.preventDefault();
         
-        const formData = new FormData(this.form);
-        const data = Object.fromEntries(formData);
-        
-        // Add additional metadata
-        data.timestamp = new Date();
-        data.userAgent = navigator.userAgent;
-        data.referrer = document.referrer;
-        data.userId = this.auth.currentUser ? this.auth.currentUser.uid : 'anonymous';
-        data.userEmail = this.auth.currentUser ? this.auth.currentUser.email : data.email;
-
-        // Show loading state
-        const submitBtn = this.form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
+        // Add loading state without changing button content
+        this.submitBtn.classList.add('loading');
+        this.submitBtn.disabled = true;
 
         try {
-            // Save to Firebase
-            await this.dbService.saveContactSubmission(data);
+            const formData = new FormData(this.form);
+            const data = Object.fromEntries(formData);
             
-            // Log user activity if authenticated
-            if (this.auth.currentUser) {
-                await this.dbService.logUserActivity(
-                    this.auth.currentUser.uid, 
-                    'contact_form_submitted'
-                );
+            // Add metadata
+            data.timestamp = new Date();
+            data.userAgent = navigator.userAgent;
+            data.referrer = document.referrer;
+            data.userId = this.auth.currentUser ? this.auth.currentUser.uid : 'anonymous';
+            data.userEmail = this.auth.currentUser ? this.auth.currentUser.email : data.email;
+
+            // Save to Firebase
+            if (this.dbService) {
+                await this.dbService.saveContactSubmission(data);
+                
+                // Log user activity if authenticated
+                if (this.auth.currentUser) {
+                    await this.dbService.logUserActivity(
+                        this.auth.currentUser.uid, 
+                        'contact_form_submitted'
+                    );
+                }
             }
             
             this.showMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
@@ -82,11 +82,11 @@ class ContactFormManager {
             
         } catch (error) {
             console.error('Error sending message:', error);
-            this.showMessage('Failed to send message. Please try again or contact me directly.', 'error');
+            this.showMessage('Failed to send message. Please try again.', 'error');
         } finally {
-            // Restore button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
+            // Remove loading state
+            this.submitBtn.classList.remove('loading');
+            this.submitBtn.disabled = false;
         }
     }
 
@@ -142,7 +142,7 @@ class ContactFormManager {
     }
 }
 
-// Enhanced Mobile Menu for Contact
+// Mobile Menu for Contact
 class ContactMobileMenu {
     constructor() {
         this.hamburger = document.getElementById('hamburger');
@@ -155,19 +155,13 @@ class ContactMobileMenu {
     }
 
     bindEvents() {
-        if (this.hamburger) {
+        if (this.hamburger && this.navMenu) {
             this.hamburger.addEventListener('click', () => this.toggleMenu());
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => this.closeMenu());
+            });
         }
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => this.closeMenu());
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!this.hamburger.contains(e.target) && !this.navMenu.contains(e.target)) {
-                this.closeMenu();
-            }
-        });
     }
 
     toggleMenu() {
@@ -207,8 +201,9 @@ class ContactGlobalAuthManager {
 
     async logout() {
         try {
-            await this.auth.signOut();
-            this.showMessage('Successfully logged out!', 'success');
+            if (this.auth) {
+                await this.auth.signOut();
+            }
             setTimeout(() => {
                 window.location.reload();
             }, 1000);
@@ -228,98 +223,21 @@ class ContactGlobalAuthManager {
                 userName.textContent = `Welcome, ${user.displayName || user.email}`;
                 if (userAvatar) {
                     userAvatar.src = user.photoURL || 
-                        this.dbService.generateAvatar(user.displayName);
+                        `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}&background=00d4ff&color=fff&size=128`;
                 }
             }
         } else {
             if (userInfo) userInfo.style.display = 'none';
         }
     }
-
-    showMessage(message, type) {
-        const messageDiv = document.createElement('div');
-        messageDiv.innerHTML = `<i class="fas fa-check-circle"></i><span>${message}</span>`;
-        messageDiv.style.cssText = `
-            position: fixed; top: 100px; right: 20px; background: #10b981; color: white;
-            padding: 1rem 2rem; border-radius: 12px; z-index: 3000;
-            display: flex; align-items: center; gap: 0.5rem; animation: slideIn 0.3s ease;
-        `;
-        document.body.appendChild(messageDiv);
-        setTimeout(() => messageDiv.remove(), 3000);
-    }
-}
-
-// Interactive Contact Elements (unchanged from previous version)
-class ContactInteractions {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        this.animateOnScroll();
-        this.addHoverEffects();
-    }
-
-    animateOnScroll() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.contact-method, .stat-item, .form-group').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            observer.observe(el);
-        });
-    }
-
-    addHoverEffects() {
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                this.createRipple(e, btn);
-            });
-        });
-    }
-
-    createRipple(event, element) {
-        const circle = document.createElement('span');
-        const diameter = Math.max(element.clientWidth, element.clientHeight);
-        const radius = diameter / 2;
-
-        circle.style.width = circle.style.height = `${diameter}px`;
-        circle.style.left = `${event.clientX - element.offsetLeft - radius}px`;
-        circle.style.top = `${event.clientY - element.offsetTop - radius}px`;
-        circle.classList.add('ripple');
-
-        const ripple = element.getElementsByClassName('ripple')[0];
-        if (ripple) {
-            ripple.remove();
-        }
-
-        element.appendChild(circle);
-    }
 }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Wait for Firebase to load
-    if (typeof firebase !== 'undefined' && window.dbService) {
+    setTimeout(() => {
         new ContactFormManager();
-        new ContactInteractions();
         new ContactMobileMenu();
         new ContactGlobalAuthManager();
-    } else {
-        // Fallback initialization without Firebase
-        console.warn('Firebase not loaded, using fallback functionality');
-        new ContactInteractions();
-        new ContactMobileMenu();
-    }
+    }, 500);
 });

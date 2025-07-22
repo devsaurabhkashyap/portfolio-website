@@ -353,8 +353,9 @@ document.addEventListener('DOMContentLoaded', () => {
         new TypingEffect(typingElement, [
             'Frontend Developer',
             'UI/UX Designer',
-            'React Specialist',
-            'Creative Coder'
+            'React Developer',
+            'Creative Coder',
+            'Data Analyst'
         ]);
     }
 });
@@ -491,3 +492,298 @@ document.addEventListener('DOMContentLoaded', () => {
         ]);
     }
 });
+
+// Advanced Resume Viewer Class
+class AdvancedResumeViewer {
+    constructor() {
+        this.viewResumeBtn = document.getElementById('viewResumeBtn');
+        this.downloadResumeBtn = document.getElementById('downloadResumeBtn');
+        this.shareResumeBtn = document.getElementById('shareResumeBtn');
+        this.closeResumeBtn = document.getElementById('closeResumeBtn');
+        this.cvPlaceholder = document.getElementById('cvPlaceholder');
+        this.cvInteractive = document.getElementById('cvInteractiveAdvanced');
+        this.navTabs = document.querySelectorAll('.nav-tab');
+        this.resumeSections = document.querySelectorAll('.resume-section');
+        this.isResumeVisible = false;
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.animateStats();
+        this.animateProgressBars();
+        this.animateSkillBars();
+    }
+
+    bindEvents() {
+        if (this.viewResumeBtn) {
+            this.viewResumeBtn.addEventListener('click', () => this.toggleResumeView());
+        }
+
+        if (this.downloadResumeBtn) {
+            this.downloadResumeBtn.addEventListener('click', () => this.downloadResume());
+        }
+
+        if (this.shareResumeBtn) {
+            this.shareResumeBtn.addEventListener('click', () => this.shareResume());
+        }
+
+        if (this.closeResumeBtn) {
+            this.closeResumeBtn.addEventListener('click', () => this.closeResumeView());
+        }
+
+        // Navigation tabs
+        this.navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const sectionId = tab.getAttribute('data-section');
+                this.switchSection(sectionId);
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isResumeVisible) {
+                this.closeResumeView();
+            }
+        });
+    }
+
+    toggleResumeView() {
+        if (!this.isResumeVisible) {
+            this.showResumeView();
+        } else {
+            this.closeResumeView();
+        }
+    }
+
+    showResumeView() {
+        this.cvPlaceholder.style.display = 'none';
+        this.cvInteractive.style.display = 'block';
+        this.viewResumeBtn.innerHTML = `
+            <span class="btn-text">
+                <i class="fas fa-times"></i>
+                Close Resume
+            </span>
+            <div class="btn-particles"></div>
+        `;
+        this.viewResumeBtn.classList.remove('btn-primary');
+        this.viewResumeBtn.classList.add('btn-secondary');
+        this.isResumeVisible = true;
+
+        // Trigger animations
+        setTimeout(() => {
+            this.animateSkillBars();
+        }, 500);
+    }
+
+    closeResumeView() {
+        this.cvInteractive.style.display = 'none';
+        this.cvPlaceholder.style.display = 'flex';
+        this.viewResumeBtn.innerHTML = `
+            <span class="btn-text">
+                <i class="fas fa-eye"></i>
+                View Interactive Resume
+            </span>
+            <div class="btn-particles"></div>
+        `;
+        this.viewResumeBtn.classList.remove('btn-secondary');
+        this.viewResumeBtn.classList.add('btn-primary');
+        this.isResumeVisible = false;
+
+        // Reset to overview section
+        this.switchSection('overview');
+    }
+
+    switchSection(sectionId) {
+        // Update navigation tabs
+        this.navTabs.forEach(tab => {
+            tab.classList.remove('active');
+            if (tab.getAttribute('data-section') === sectionId) {
+                tab.classList.add('active');
+            }
+        });
+
+        // Update sections
+        this.resumeSections.forEach(section => {
+            section.classList.remove('active');
+            if (section.id === sectionId) {
+                section.classList.add('active');
+            }
+        });
+
+        // Trigger section-specific animations
+        if (sectionId === 'skills') {
+            setTimeout(() => this.animateSkillBars(), 100);
+        }
+    }
+
+    animateStats() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(counter => {
+            observer.observe(counter);
+        });
+    }
+
+    animateCounter(counter) {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const startTime = performance.now();
+        
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function
+            const easeProgress = progress * (2 - progress);
+            const current = Math.floor(easeProgress * target);
+            
+            counter.textContent = current;
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+        
+        requestAnimationFrame(animate);
+    }
+
+    animateProgressBars() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target.querySelector('.progress-bar');
+                    if (progressBar) {
+                        const width = progressBar.getAttribute('data-width');
+                        progressBar.style.width = width;
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.highlight-item-advanced').forEach(item => {
+            observer.observe(item);
+        });
+    }
+
+    animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-bar-advanced');
+        skillBars.forEach((bar, index) => {
+            setTimeout(() => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width;
+            }, index * 200);
+        });
+    }
+
+    downloadResume() {
+        // Create download link
+        const link = document.createElement('a');
+        link.href = 'assets/cv/John_Doe_CV.pdf';
+        link.download = 'John_Doe_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show success message
+        this.showNotification('Resume downloaded successfully!', 'success');
+    }
+
+    shareResume() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'John Doe - Frontend Developer Resume',
+                text: 'Check out my professional resume and portfolio',
+                url: window.location.href
+            }).then(() => {
+                this.showNotification('Resume shared successfully!', 'success');
+            }).catch(() => {
+                this.fallbackShare();
+            });
+        } else {
+            this.fallbackShare();
+        }
+    }
+
+    fallbackShare() {
+        // Copy URL to clipboard
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            this.showNotification('Resume link copied to clipboard!', 'success');
+        }).catch(() => {
+            this.showNotification('Unable to share resume', 'error');
+        });
+    }
+
+    showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 10000;
+            animation: slideInFromTop 0.3s ease;
+            font-weight: 600;
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.animation = 'slideOutToTop 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+}
+
+// Initialize Advanced Resume Viewer
+document.addEventListener('DOMContentLoaded', () => {
+    new AdvancedResumeViewer();
+});
+
+// Additional CSS for notifications
+const notificationStyles = document.createElement('style');
+notificationStyles.textContent = `
+    @keyframes slideInFromTop {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes slideOutToTop {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+    }
+`;
+document.head.appendChild(notificationStyles);
